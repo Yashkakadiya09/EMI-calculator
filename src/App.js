@@ -12,12 +12,14 @@ function App() {
 
     setLoanData({
       ...loanData,
-      [name]: parseInt(value),
+      [name]: value,
     });
   };
   const [data, setData] = useState([]);
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault();
     let array = [];
+    console.log(loanData.loanintrest);
 
     for (let i = 0; i < loanData?.loanmonth; i++) {
       const interestPerMonth = loanData?.loanintrest / 12 / 100;
@@ -95,49 +97,53 @@ function App() {
             <i className="ri-calculator-line"></i>
           </h1>
         </div>
-        <div
-          style={{
-            width: "100%",
-            marginTop: "2vw",
-            display: "flex",
-            gap: "2vw",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <div>
-            <h5>Loan Amount(₹)</h5>
-            <input
-              type="text"
-              name="loanamount"
-              onChange={(e) => handleChange(e)}
-            />
-          </div>
-          <div>
-            <h5>Loan Intrest(%)</h5>
-            <input
-              type="text"
-              name="loanintrest"
-              onChange={(e) => handleChange(e)}
-            />
-          </div>
-          <div>
-            <h5>Loan Month</h5>
-            <input
-              type="text"
-              name="loanmonth"
-              onChange={(e) => handleChange(e)}
-            />
-          </div>
-          <button
+        <div>
+          <form
+            onSubmit={(e) => handleClick(e)}
             style={{
+              width: "100%",
               marginTop: "2vw",
+              display: "flex",
+              gap: "2vw",
+             
+              justifyContent: "center",
             }}
-            className="btn btn-danger"
-            onClick={() => handleClick()}
           >
-            Calculate
-          </button>
+            <div>
+              <h5>Loan Amount(₹)</h5>
+              <input
+                type="text"
+                name="loanamount"
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
+            <div>
+              <h5>Loan Intrest(%)</h5>
+              <input
+                type="text"
+                name="loanintrest"
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
+            <div>
+              <h5>Loan Month</h5>
+              <input
+                type="text"
+                name="loanmonth"
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
+            <button
+              style={{
+                marginTop: "2vw",
+              }}
+              type="submit"
+              className="btn btn-danger"
+              // onClick={() => handleClick()}
+            >
+              Calculate
+            </button>
+          </form>
         </div>
         {data.length > 0 ? (
           <div
