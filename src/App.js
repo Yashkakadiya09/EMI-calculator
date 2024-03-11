@@ -2,9 +2,9 @@ import { useState } from "react";
 
 function App() {
   const [loanData, setLoanData] = useState({
-    loanamount: 0,
-    loanintrest: 0,
-    loanmonth: 0,
+    loanamount: "",
+    loanintrest: "",
+    loanmonth: "",
   });
 
   const handleChange = (e) => {
@@ -19,7 +19,7 @@ function App() {
   const handleClick = (e) => {
     e.preventDefault();
     let array = [];
-    console.log(loanData.loanintrest);
+   
 
     for (let i = 0; i < loanData?.loanmonth; i++) {
       const interestPerMonth = loanData?.loanintrest / 12 / 100;
@@ -99,59 +99,93 @@ function App() {
         </div>
         <div>
           <form
+            className="form"
             onSubmit={(e) => handleClick(e)}
             style={{
               width: "100%",
               marginTop: "2vw",
               display: "flex",
               gap: "2vw",
-             
+
               justifyContent: "center",
             }}
           >
-            <div>
+            <div className="box">
               <h5>Loan Amount(₹)</h5>
               <input
+                style={{
+                  width: "100%",
+                }}
+                pattern="[0-9]*"
                 type="text"
                 name="loanamount"
-                onChange={(e) => handleChange(e)}
+                placeholder="0"
+                value={loanData.loanamount}
+                onChange={(e) => {
+                  if (e.target.validity.valid) {
+                    handleChange(e);
+                  }
+                }}
               />
             </div>
-            <div>
+            <div className="box">
               <h5>Loan Intrest(%)</h5>
               <input
+                style={{
+                  width: "100%",
+                }}
+                pattern="[0-9]*"
                 type="text"
                 name="loanintrest"
-                onChange={(e) => handleChange(e)}
+                placeholder="0"
+                value={loanData.loanintrest}
+                onChange={(e) => {
+                  if (e.target.validity.valid) {
+                    handleChange(e);
+                  }
+                }}
               />
             </div>
-            <div>
+            <div className="box">
               <h5>Loan Month</h5>
               <input
-                type="text"
+                style={{
+                  width: "100%",
+                }}
                 name="loanmonth"
-                onChange={(e) => handleChange(e)}
+                pattern="[0-9]*"
+                placeholder="0"
+                value={loanData.loanmonth}
+                onChange={(e) => {
+                  if (e.target.validity.valid) {
+                    handleChange(e);
+                  }
+                }}
               />
             </div>
-            <button
+            <div
               style={{
-                marginTop: "2vw",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
-              type="submit"
-              className="btn btn-danger"
-              // onClick={() => handleClick()}
+              className="box"
             >
-              Calculate
-            </button>
+              <button type="submit" className="btn btn-danger">
+                Calculate
+              </button>
+            </div>
           </form>
         </div>
         {data.length > 0 ? (
           <div
+            className="table"
             style={{
               marginTop: "2vw",
               border: "1px solid black",
               borderRadius: "10px",
-              overflow: "hidden",
+              overflowX: "scroll",
+              overflowY: "hidden",
             }}
           >
             <table className="table table-danger  table-striped">
